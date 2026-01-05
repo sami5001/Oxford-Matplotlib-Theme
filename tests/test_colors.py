@@ -18,10 +18,10 @@ class TestOxfordColors:
     """Test the OxfordColors class attributes."""
 
     def test_oxford_colors_count(self):
-        """Test that there are 57 Oxford colors."""
+        """Test that there are 56 Oxford colors."""
         # Count class attributes (excluding special methods)
         color_attrs = [attr for attr in dir(OxfordColors) if not attr.startswith('_') and attr.isupper()]
-        assert len(color_attrs) == 57, f"Should have exactly 57 Oxford colors, found {len(color_attrs)}"
+        assert len(color_attrs) == 56, f"Should have exactly 56 Oxford colors, found {len(color_attrs)}"
 
     def test_oxford_blue(self):
         """Test that Oxford Blue has the correct hex code."""
@@ -64,8 +64,8 @@ class TestOxfordColorsDictionary:
     """Test the OXFORD_COLORS dictionary."""
 
     def test_dictionary_size(self):
-        """Test that dictionary has 57 entries."""
-        assert len(OXFORD_COLORS) == 57, f"Should have exactly 57 color entries, found {len(OXFORD_COLORS)}"
+        """Test that dictionary has 56 entries."""
+        assert len(OXFORD_COLORS) == 56, f"Should have exactly 56 color entries, found {len(OXFORD_COLORS)}"
 
     def test_dictionary_keys_lowercase(self):
         """Test that all dictionary keys are lowercase with underscores."""

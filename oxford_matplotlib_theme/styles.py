@@ -5,7 +5,7 @@ Functions to apply Oxford University styling to Matplotlib figures.
 """
 
 import matplotlib.pyplot as plt
-from matplotlib import cycler
+from cycler import cycler
 from matplotlib.figure import Figure
 from matplotlib.axes import Axes
 from typing import Optional, List, Tuple
@@ -78,20 +78,27 @@ def apply_oxford_theme(
     reset_theme : Restore matplotlib defaults
     oxford_figure : Create pre-styled figure
     """
-    # Apply base style first
-    plt.style.use(style_base)
+    # Input validation
+    if font_scale <= 0:
+        raise ValueError(f"font_scale must be positive, got {font_scale}")
 
-    # Determine color cycle (convert names to hex if needed)
-    if color_cycle is None:
-        colors = OXFORD_PALETTE
-    else:
+    if color_cycle is not None and len(color_cycle) == 0:
+        raise ValueError("color_cycle cannot be empty")
+
+    # Pre-validate all colors before applying theme (to avoid partial application)
+    if color_cycle is not None:
         colors = []
         for color in color_cycle:
-            # Check if it's a named color or hex code
             if color.startswith('#'):
                 colors.append(color)
             else:
+                # This will raise ValueError if color is invalid
                 colors.append(get_color(color))
+    else:
+        colors = OXFORD_PALETTE
+
+    # Apply base style first
+    plt.style.use(style_base)
 
     # Build Oxford-specific rcParams
     oxford_rc = {
@@ -235,6 +242,10 @@ def oxford_figure(
     --------
     apply_oxford_theme : Apply theme globally to all figures
     """
+    # Input validation
+    if figsize[0] <= 0 or figsize[1] <= 0:
+        raise ValueError(f"figsize dimensions must be positive, got {figsize}")
+
     # Apply Oxford theme first
     apply_oxford_theme(
         style_base=style_base,

@@ -96,6 +96,9 @@ from .utils import (
     save_oxford_figure,
     get_journal_preset,
     JOURNAL_PRESETS,
+    PUBLICATION_DPI,
+    PUBLICATION_DPI_HIGH,
+    SUPPORTED_FORMATS,
 )
 
 # Define public API
@@ -126,4 +129,7 @@ __all__ = [
     'save_oxford_figure',
     'get_journal_preset',
     'JOURNAL_PRESETS',
+    'PUBLICATION_DPI',
+    'PUBLICATION_DPI_HIGH',
+    'SUPPORTED_FORMATS',
 ]

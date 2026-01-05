@@ -7,12 +7,16 @@ Official Oxford University colors and styling for Matplotlib visualizations.
 
 Create publication-quality figures with official Oxford University branding for academic papers, presentations, and reports.
 
+> Author: Sami Adnan
+> Nuffield Department of Primary Care Health Sciences 
+> University of Oxford
+
 ---
 
 ## Features
 
 **Official Oxford Branding**
-- 36 official Oxford University brand colors
+- 56 official Oxford University brand colors (35 brand + 21 thesis colors)
 - Compliant with [Oxford Brand Guidelines](https://communications.admin.ox.ac.uk/communications-resources/visual-identity/identity-guidelines/colours)
 - Oxford Blue (#002147) throughout axes, labels, and text
 

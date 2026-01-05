@@ -54,7 +54,7 @@ from oxford_matplotlib_theme import (
 
 ### OxfordColors Class
 
-Static class containing all 36 official Oxford University brand colors as class attributes.
+Static class containing all 56 official Oxford University brand colors as class attributes (35 brand + 21 thesis colors).
 
 **Attributes:**
 
@@ -116,11 +116,11 @@ coral = OxfordColors.CORAL  # '#FE615A'
 
 ### OXFORD_COLORS Dictionary
 
-Dictionary providing lowercase snake_case access to all 36 colors.
+Dictionary providing lowercase snake_case access to all 56 colors.
 
 **Type:** `Dict[str, str]`
 
-**Keys:** 36 color names in lowercase with underscores
+**Keys:** 56 color names in lowercase with underscores
 
 **Example:**
 ```python

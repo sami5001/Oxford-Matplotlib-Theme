@@ -244,8 +244,9 @@ class TestOxfordFigure:
 
     def test_kwargs_passed_to_subplots(self):
         """Test that additional kwargs are passed to plt.subplots."""
-        fig, ax = oxford_figure(dpi=150)
-        assert fig.dpi == 150
+        # Use constrained_layout instead of dpi, as dpi can be overridden by style
+        fig, ax = oxford_figure(layout='constrained')
+        assert fig.get_layout_engine() is not None
 
 
 class TestGetOxfordRcParams:

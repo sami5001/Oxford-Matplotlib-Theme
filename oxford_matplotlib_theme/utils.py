@@ -10,33 +10,45 @@ from .colors import OXFORD_COLORS
 
 
 # ============================================================================
+# PUBLICATION CONSTANTS
+# ============================================================================
+
+# Standard DPI for publication-quality figures
+PUBLICATION_DPI = 300
+PUBLICATION_DPI_HIGH = 600  # For TIFF or high-quality print
+
+# Supported export formats
+SUPPORTED_FORMATS = {'png', 'svg', 'pdf', 'eps', 'tiff', 'jpg', 'jpeg', 'ps', 'raw', 'rgba', 'pgf'}
+
+
+# ============================================================================
 # JOURNAL EXPORT PRESETS
 # ============================================================================
 
 JOURNAL_PRESETS: Dict[str, Dict[str, Any]] = {
     'nature': {
         'figsize': (3.5, 2.5),
-        'dpi': 300,
+        'dpi': PUBLICATION_DPI,
         'format': 'svg',
     },
     'nature_double': {
         'figsize': (7.0, 5.0),
-        'dpi': 300,
+        'dpi': PUBLICATION_DPI,
         'format': 'svg',
     },
     'plos': {
         'figsize': (6.83, 5.0),
-        'dpi': 300,
+        'dpi': PUBLICATION_DPI,
         'format': 'tiff',
     },
     'bmj': {
         'figsize': (3.27, 2.5),
-        'dpi': 300,
+        'dpi': PUBLICATION_DPI,
         'format': 'eps',
     },
     'lancet': {
         'figsize': (3.27, 2.5),
-        'dpi': 300,
+        'dpi': PUBLICATION_DPI,
         'format': 'tiff',
     },
 }
@@ -112,6 +124,10 @@ def add_oxford_branding(
     if not add_watermark:
         return fig
 
+    # Input validation
+    if not 0 <= opacity <= 1:
+        raise ValueError(f"opacity must be between 0 and 1, got {opacity}")
+
     # Position mapping (figure coordinates: 0-1)
     positions = {
         'bottom_right': {'x': 0.98, 'y': 0.02, 'ha': 'right', 'va': 'bottom'},
@@ -129,8 +145,8 @@ def add_oxford_branding(
 
     # Add watermark text using figure coordinates
     fig.text(
-        pos['x'],
-        pos['y'],
+        float(pos['x']),  # type: ignore[arg-type]
+        float(pos['y']),  # type: ignore[arg-type]
         watermark_text,
         fontsize=fontsize,
         color=OXFORD_COLORS['stone_grey'],
@@ -230,8 +246,17 @@ def save_oxford_figure(
     add_oxford_branding : Add watermark to figure
     get_journal_preset : Get journal-specific settings
     """
+    # Input validation
+    if dpi <= 0:
+        raise ValueError(f"dpi must be positive, got {dpi}")
+
+    if format.lower() not in SUPPORTED_FORMATS:
+        raise ValueError(
+            f"format '{format}' not recognized. Valid formats: {', '.join(sorted(SUPPORTED_FORMATS))}"
+        )
+
     # Add file extension if not present
-    if not filename.endswith(f'.{format}'):
+    if not filename.lower().endswith(f'.{format.lower()}'):
         filename = f'{filename}.{format}'
 
     # Save figure with publication settings

@@ -342,7 +342,7 @@ def get_color(name: str) -> str:
     ----------
     name : str
         Name of the color (e.g., 'oxford_blue', 'coral', 'royal_blue').
-        Case-sensitive, must use lowercase with underscores.
+        Case-insensitive, uses lowercase with underscores internally.
 
     Returns
     -------
@@ -358,14 +358,15 @@ def get_color(name: str) -> str:
     --------
     >>> get_color('oxford_blue')
     '#002147'
-    >>> get_color('coral')
+    >>> get_color('Coral')  # case-insensitive
     '#FE615A'
     """
-    if name not in OXFORD_COLORS:
+    name_lower = name.lower()
+    if name_lower not in OXFORD_COLORS:
         raise ValueError(
             f"Color '{name}' not found. Available colors: {', '.join(sorted(OXFORD_COLORS.keys()))}"
         )
-    return OXFORD_COLORS[name]
+    return OXFORD_COLORS[name_lower]
 
 
 def get_palette(palette_name: str = 'primary', n_colors: Optional[int] = None) -> List[str]:
@@ -425,8 +426,14 @@ def get_palette(palette_name: str = 'primary', n_colors: Optional[int] = None) -
         'phc_thesis': ColorPalettes.PHC_THESIS,
     }
 
-    # Case-insensitive lookup with fallback to PRIMARY
-    palette = palettes.get(palette_name.lower(), ColorPalettes.PRIMARY)
+    # Case-insensitive lookup
+    palette_key = palette_name.lower()
+    if palette_key not in palettes:
+        available = ', '.join(sorted(palettes.keys()))
+        raise ValueError(
+            f"Palette '{palette_name}' not found. Available palettes: {available}"
+        )
+    palette = palettes[palette_key]
 
     # Return copy to prevent mutation
     if n_colors is None:

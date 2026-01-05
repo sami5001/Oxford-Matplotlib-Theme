@@ -8,12 +8,11 @@ version = "1.0.0"
 description = "Matplotlib visualization theme following Official Oxford University colors and styling."
 authors = [{ name="Sami Adnan", email="sami.adnan@phc.ox.ac.uk" }]
 readme = "README.md"
-license = { file="LICENSE" }
+license = "MIT"
 requires-python = ">=3.8"
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Science/Research",
-    "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
@@ -56,6 +55,9 @@ Issues = "https://github.com/sami5001/oxford-matplotlib-theme/issues"
 [tool.setuptools]
 packages = ["oxford_matplotlib_theme"]
 
+[tool.setuptools.package-data]
+oxford_matplotlib_theme = ["py.typed"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 python_files = ["test_*.py"]
@@ -82,7 +84,7 @@ extend-exclude = '''
 '''
 
 [tool.mypy]
-python_version = "3.8"
+python_version = "3.9"
 warn_return_any = true
 warn_unused_configs = true
 disallow_untyped_defs = false
@@ -93,3 +95,7 @@ warn_redundant_casts = true
 warn_unused_ignores = true
 warn_no_return = true
 follow_imports = "normal"
+
+[tool.flake8]
+max-line-length = 100
+extend-ignore = ["E203", "W503"]
